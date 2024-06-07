@@ -1,0 +1,26 @@
+{
+  "name": "vyz-parser",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.2"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "crawlee": "^3.10.2",
+    "dotenv": "^16.4.5",
+    "googlethis": "^1.8.0",
+    "node-xlsx": "^0.24.0",
+    "qs": "^6.12.1",
+    "typescript": "^5.4.5"
+  }
+}
