@@ -1,5 +1,6 @@
 import { searchLicense } from "./handlers/searchLicense.js";
 import { searchWebsite } from "./handlers/searchWebsite.js";
+import { searchOperator } from "./handlers/searchOperator.js";
 import { searchSpecialty } from "./handlers/searchSpecialty.js";
 
 import { jsonToXlsx } from "./utils/jsonToXlsx.js";
@@ -47,12 +48,14 @@ const universities = [
 ];
 
 const results = [];
+const rknResults = [];
 
 let counter = 0;
 
 for (let uni of universities) {
     console.log(`Парсим: ${uni.slice(0, 10)}... Прогресс: ${counter}/${universities.length}`);
 
+    let rknRes = {};
     let licenseRes = {};
     let websiteRes = {};
     let specialtyRes = {
@@ -64,13 +67,19 @@ for (let uni of universities) {
         licenseRes = await searchLicense(uni);
     } catch (e) {}
 
-    try {
-        websiteRes = await searchWebsite(uni);
-    } catch (e) {}
+    // try {
+    //     websiteRes = await searchWebsite(uni);
+    // } catch (e) {}
 
-    try {
-        specialtyRes = await searchSpecialty(uni);;
-    } catch (e) {}
+    // try {
+    //     specialtyRes = await searchSpecialty(uni);;
+    // } catch (e) {}
+
+    if (licenseRes && licenseRes.inn) {
+        try {
+            rknRes = await searchOperator(licenseRes.inn);
+        } catch (e) {}
+    }
     
     results.push({
         ...licenseRes,
@@ -78,11 +87,17 @@ for (let uni of universities) {
         ...specialtyRes,
     });
 
+    if (rknRes) {
+        rknResults.push(rknRes);
+    }
+
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     counter += 1;
+
+    if (counter % 5 === 0) {
+        jsonToXlsx(results, rknResults);
+    }
 }
 
-console.log(results);
-
-jsonToXlsx(results);
+jsonToXlsx(results, rknResults);

@@ -3,5 +3,6 @@ export const CONST = {
         LICENSE_SEARCH: 'https://islod.obrnadzor.gov.ru/rlic/search/?page=1',
         SPECIALITY_SEARCH: 'https://tabiturient.ru/ajax/ajvuz1.php',
         VUZ_INFO_SEARCH: 'https://tabiturient.ru/ajax/ajspec.php',
+        PERSONAL_INFO_SEARCH: 'https://pd.rkn.gov.ru/operators-registry/operators-list/',
     }
 }
